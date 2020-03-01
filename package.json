@@ -1,0 +1,32 @@
+{
+  "name": "project_super_green",
+  "version": "0.0.1",
+  "description": "so green",
+  "main": "sgp_client.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo 'no command for test'"
+  },
+  "keywords": [
+    "green",
+    "project",
+    "super",
+    "sgp"
+  ],
+  "author": "jeanyves chaillou @ kwa",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "electron": "^8.0.1",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwabounga/sgp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwabounga/sgp/issues"
+  },
+  "homepage": "https://github.com/kwabounga/sgp#readme"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "super green project",
+  "version": "0.0.1",
+  "description": "so green",
+  "keywords": ["green","super", "project", "sgp"],
+  "license": "UNLICENCE",
+  "structure":{
+    "cssPath":"./css/",
+    "jsPath":"./js/",
+    "htmlPath":"./html/"
+  },
+  "addons": {
+    "useBootstrap":false,
+    "useFontAwesome":false,
+    "useJquery":false,
+    "useTweenMax":false,
+    "useBabylonJS":false,
+    "useKwaJs":true,
+    "useKwaTools":true
+  },
+  "jsFunctions": {
+    "ajaxget":true,
+    "ajaxpost":true,
+    "useful":true
+  }
+}
