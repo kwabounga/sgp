@@ -1,4 +1,4 @@
-exports.getCode = function(){
+exports.getCode = function(conf){
   let code = {}
   code.tools = {
     padZeros: function(num, nbZeros ){
@@ -21,7 +21,11 @@ exports.getCode = function(){
                   + code.tools.padZeros(code.tools.date().getDate(),2)
                   + code.tools.padZeros(code.tools.date().getMinutes(),2)
                   + code.tools.padZeros(code.tools.date().getHours(),2)
-                  + code.tools.date().getFullYear()
+                  + code.tools.date().getFullYear();
+
+  for (var i = 0; i < conf.code_salt.length; i++) {
+    encryption + conf.code_salt.charCodeAt(i);
+  }
   code_session = Math.floor(encryption / 564);
   return code_session;
 }

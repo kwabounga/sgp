@@ -1,3 +1,6 @@
+#sgp configuration
+/conf/*
+
 # Logs
 logs
 *.log

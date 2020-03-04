@@ -1,7 +1,7 @@
 var CronJob = require('cron').CronJob;
-function Monitoring(profil) {
+function Monitoring(profil, conf) {
   this.profil = profil;
-  this.con = require('./connection.js').connection();
+  this.con = require('./connection.js').connection(conf);
   this.params = {};
   this.current_datas = {
     temperature: 35,

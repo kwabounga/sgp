@@ -5,6 +5,7 @@
   "main": "sgp_client.js",
   "scripts": {
     "start": "electron .",
+    "server": "node ./sgp_srv.js",
     "test": "echo 'no command for test'"
   },
   "keywords": [

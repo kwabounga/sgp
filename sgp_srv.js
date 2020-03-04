@@ -1,22 +1,25 @@
 // run:
 // node .\sgp_srv.js
-
 var api_rest = require('./exports/rest.js');
-var srv_rest = api_rest.rest(4400);
+var loader_conf = require('./exports/configuration.js');
+var conf =  '';
+loader_conf.configuration('./conf/.conf', (data) => {
+  conf = data;
+  console.log('conf:', conf)
 
+  // API REST
+  var srv_rest = api_rest.rest(conf);
 
-
-
-
-var Monitoring = require('./exports/sgp_monitoring');
-let mon = new Monitoring('default');
-console.log('[SERVER] init Monitoring');
-mon.init(() => {
-  console.log('[SERVER] init Monitoring ..OK');
-
-  console.log('[SERVER] overview');
-  mon.overview();
-  console.log('[SERVER] global start Monitoring ');
-  mon.start();
-  mon.summary();
-});
+  //Monitoring
+  var Monitoring = require('./exports/sgp_monitoring');
+  let mon = new Monitoring('default',conf);
+  console.log('[SERVER] init Monitoring');
+  mon.init(() => {
+    console.log('[SERVER] init Monitoring ..OK');
+    console.log('[SERVER] overview');
+    mon.overview();
+    console.log('[SERVER] global start Monitoring ');
+    mon.start();
+    mon.summary();
+  });
+})
