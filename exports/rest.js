@@ -30,7 +30,7 @@ exports.rest = function(conf) {
   app.route('/photo/:device').get(function(req, res) {
     console.log('server take photo');
 
-    res.sendFile('./img/' + req.params.device + '/hackerman.jpg');
+    res.sendFile('/home/pi/Documents/sgp/img/' + req.params.device + '/hackerman.jpg');
   });
   //TESTS
   app.route('/tests/*').get(function(req, res) {
