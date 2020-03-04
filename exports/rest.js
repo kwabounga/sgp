@@ -1,5 +1,7 @@
-exports.rest = function(conf){
-  const NOTHING_HERE = {result:'NOTHING HERE'}
+exports.rest = function(conf) {
+  const NOTHING_HERE = {
+    result: 'NOTHING HERE'
+  }
   var express = require('express');
   // var connection = require('./connection.js').connection(conf);
   var sgp = require('./sgp_ctrlr.js');
@@ -15,12 +17,20 @@ exports.rest = function(conf){
   app.route('/map/*').get(function(req, res) {
     console.log('[show map]');
     let map = [];
-       map.push('/tests/')
-       map.push('/execute/:command/:param1/:code')
-       map.push('/infos')
-       map.push('/infos/:device/:code')
-       map.push('/*')
+    map.push('/tests/')
+    map.push('/execute/:command/:param1/:code')
+    map.push('/infos')
+    map.push('/infos/:device/:code')
+    map.push('/stats/:type/:code')
+    map.push('/photo/:device')
+    map.push('/*')
     res.send(map);
+  });
+  //PHOTO
+  app.route('/photo/:device').get(function(req, res) {
+    console.log('server take photo');
+
+    res.sendFile('../img/' + req.params.device + '/hackerman.jpg');
   });
   //TESTS
   app.route('/tests/*').get(function(req, res) {
@@ -32,9 +42,9 @@ exports.rest = function(conf){
   //COMMAND
   app.route('/execute/:command/:param1/:code').get(function(req, res) {
     console.log('server execute command', req.params.command, req.params.param1);
-    if(req.params.code === code.getCode(conf)){
+    if (req.params.code === code.getCode(conf)) {
       res.send(sgp.commander(req.params.command, req.params.param1));
-    }else{
+    } else {
       res.send(NOTHING_HERE)
     }
   });
@@ -42,7 +52,7 @@ exports.rest = function(conf){
 
   //INFOS GENERALS
   app.route('/infos').get(function(req, res) {
-    let gen = 'all'
+    let gen = 'all';
     console.log('server generals infos device', gen);
     res.send(sgp.infos(gen));
   });
@@ -51,11 +61,11 @@ exports.rest = function(conf){
   //INFOS
   app.route('/infos/:device/:code').get(function(req, res) {
     console.log('server infos device', req.params.device);
-    console.log(req.params.code, code.getCode(conf))
-    if(req.params.code == code.getCode(conf)){
+    console.log(req.params.code, code.getCode(conf));
+    if (req.params.code == code.getCode(conf)) {
       res.send(sgp.infos(req.params.device));
-    }else{
-      res.send(NOTHING_HERE)
+    } else {
+      res.send(NOTHING_HERE);
     }
   });
   //STATS
@@ -83,7 +93,9 @@ exports.rest = function(conf){
   app.route('*').get(function(req, res) {
     console.log('server bad gateway');
 
-    res.send({error:'BAD GATEWAY'});
+    res.send({
+      error: 'BAD GATEWAY'
+    });
   });
   var server = app.listen(conf.rest_port, function() {});
   return server;
