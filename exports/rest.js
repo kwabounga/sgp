@@ -1,4 +1,5 @@
 exports.rest = function(conf) {
+  var logger = require('./logger.js').logger(conf);
   const NOTHING_HERE = {
     result: 'NOTHING HERE'
   }
@@ -45,7 +46,7 @@ exports.rest = function(conf) {
     if (req.params.code === code.getCode(conf)) {
       res.send(sgp.commander(req.params.command, req.params.param1));
     } else {
-      res.send(NOTHING_HERE)
+      res.status(403).send('Forbidden');
     }
   });
 
@@ -65,7 +66,7 @@ exports.rest = function(conf) {
     if (req.params.code == code.getCode(conf)) {
       res.send(sgp.infos(req.params.device));
     } else {
-      res.send(NOTHING_HERE);
+      res.status(403).send('Forbidden');
     }
   });
   //STATS
@@ -91,11 +92,10 @@ exports.rest = function(conf) {
 
   //404
   app.route('*').get(function(req, res) {
-    console.log('server bad gateway');
+    logger.warn('Bad Request');
 
-    res.send({
-      error: 'BAD GATEWAY'
-    });
+    res.status(400).send('Bad Request');
+    // res.sendStatus(403);
   });
   var server = app.listen(conf.rest_port, function() {});
   return server;

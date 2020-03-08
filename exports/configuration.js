@@ -9,8 +9,9 @@ exports.configuration = function(file, callback){
     for (var i = 0; i < sd.length; i++) {
       let lignes = sd[i].trim().split(':');
       // console.log('ligne', lignes)
-      if(lignes == '') break;
-       elmt[lignes[0]] = lignes[1];
+      if(lignes != '' && lignes.length == 2){
+        elmt[lignes[0]] = lignes[1];
+      }
 
     }
     callback(elmt);
