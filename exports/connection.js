@@ -22,6 +22,6 @@ exports.connection = function(conf) {
     password: conf.db_pwd,
     database: conf.db_name
   });
-  connection.connect();
+  // connection.connect();
   return connection;
 }
