@@ -20,7 +20,7 @@ exports.connection = function(conf) {
     port: conf.db_port,
     user: conf.db_user,
     password: conf.db_pwd,
-    database: conf.db_name'
+    database: conf.db_name
   });
   connection.connect();
   return connection;
