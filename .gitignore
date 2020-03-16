@@ -1,6 +1,6 @@
 #sgp configuration
-/conf/*
-
+/conf
+/confrpi
 # Logs
 logs
 *.log

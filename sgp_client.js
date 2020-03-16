@@ -30,6 +30,7 @@ function createWindow () {
   // affiche proprement l'app ( sans voir le chargement )
   win.once('ready-to-show', () => {
     win.show()
+    console.log(require('os').hostname())
   })
   // appIcon.on('click', function(){
   //   console.log('TRAYYY', win.isAlwaysOnTop())
