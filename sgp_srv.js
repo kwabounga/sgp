@@ -13,16 +13,16 @@ loader_conf.configuration('./conf/.conf', (data) => {
   // API REST
   var srv_rest = api_rest.rest(conf);
 
-  //Monitoring
-  // var Monitoring = require('./exports/sgp_monitoring');
-  // let mon = new Monitoring('default',conf);
-  // console.log('[SERVER] init Monitoring');
-  // mon.init(() => {
-  //   console.log('[SERVER] init Monitoring ..OK');
-  //   console.log('[SERVER] overview');
-  //   mon.overview();
-  //   console.log('[SERVER] global start Monitoring ');
-  //   mon.start();
-  //   mon.summary();
-  // });
+  Monitoring
+  var Monitoring = require('./exports/sgp_monitoring');
+  let mon = new Monitoring('default',conf);
+  console.log('[SERVER] init Monitoring');
+  mon.init(() => {
+    console.log('[SERVER] init Monitoring ..OK');
+    console.log('[SERVER] overview');
+    mon.overview();
+    console.log('[SERVER] global start Monitoring ');
+    mon.start();
+    mon.summary();
+  });
 })
