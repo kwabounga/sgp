@@ -18,7 +18,7 @@ function Monitoring(profil, conf) {
     var me = this;
     this.con.query('SELECT * from scenarios s where s.scen_name=?;', [this.profil], function(error, results, fields){
       if(error) throw error;
-      console.log(results[0]);
+      console.log('cllBack query ' + results[0]);
       me.params = results[0];
       me.isInit = true;
 
