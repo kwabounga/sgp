@@ -129,11 +129,11 @@ l'application utilise une base de donnée mySql (local) / mariadb (rpi) pour
 * enregistrer les relevés
 * enregistrer les liens/id/informations? des photos
 
-### Modules
+## Modules
 Description des modules et utilisation / personnalisation
 intégration du dashboard pour le monitoring cli
 
-
+### Server
 #### configuration.js
 
 outils perso pour la recuperation et l'instenciation de la configuration
@@ -257,12 +257,22 @@ mon.init(() => {
   mon.summary(); // renvoi préleve les infos sur tous les capteurs et renvoi le resultat
 });
 ```
-`// TODO: faire une methode pour stopper le Monitoring`  
+// TODO: faire une methode pour stopper le Monitoring  
 
-![SGPTINY](./doc/svg/preview.svg)
+### CLI  
 
+utilisation de cli_dashboard pour afficher les données  
+image-ascii pour générer les graphiques en code ascii  
+Avec *sgp* en ssh on a acces directement au rpi et aux differents capteurs pour les interroger directement  
 
-## Raspberry spécificités
+### Client
+![SGPTINY](./doc/svg/preview.svg)  
+
+utilisation de chart.js pour générer les graphique
+bootstrap 4 pour le front
+requetes sur l'api rest (local) pour récupérer les informations  
+
+## Raspberry spécificités  
 
 #### GPIO
 ![GPIO](./doc/svg/gpiopinsv3.svg)
