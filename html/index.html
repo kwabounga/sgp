@@ -1,38 +1,148 @@
   <!DOCTYPE html>
   <html lang="fr" dir="ltr">
-    <head>
-      <!-- meta -->
-      <meta name="author" content="jean-yvesChaillou@kwa">
-      <meta name="description" content="so green">
-      <meta name="keywords" content="green super project sgp">
-      <meta name="version" content="0.0.1">
-      <meta name="application-name" content="super green project">
-      <meta charset="utf-8">
-      <title>super green project</title>
-      <!-- css -->
-      <link rel="stylesheet" type="text/css" href="./../css/styles.css">
 
-    </head>
+  <head>
+    <!-- meta -->
+    <meta name="author" content="jean-yvesChaillou@kwa">
+    <meta name="description" content="so green">
+    <meta name="keywords" content="green super project sgp">
+    <meta name="version" content="0.0.1">
+    <meta name="application-name" content="super green project">
+    <meta charset="utf-8">
+    <title>super green project</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="./../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./../css/fontawesome-free/css/all.css">
+    <link rel="stylesheet" type="text/css" href="./../css/styles.css">
 
-    <body>
+  </head>
 
+  <body>
 
-      <h1>sgp</h1>
-      <div id="dashboard">
+    <div class="container">
 
-      </div>
+    </div>
+    <!-- <h1>sgp</h1> -->
+    <!-- premiere ligne  -->
+    <div class="row ml-2 mr-2" id="test">
 
-      <!-- kwa.js -->
-      <script src="./../js/Kwa.js"></script>
-      <!-- kwa tools -->
-      <script src="./../js/kwatools.js"></script>
-      <!-- scripts  -->
-      <script src="./../js/main.js" charset="utf-8"></script>
-      <script type="text/javascript">
-        window.onload = (function() {
-          // entry point js
-          init('initialization')
-        })
-      </script>
-    </body>
+      <div class="col mr-2 mb-2 card text-white bg-dark" id="card_temp">
+        <div class="card-header">
+        </div>
+        <div class="card-body text-center" id="card_temp_info">
+          tp
+        </div>
+        <h3 class="card-title text-center" id="card_temp_data">8°</h3>
+      </div> <!-- end of card -->
+
+      <div class="col mr-2 mb-2 card text-white bg-dark" id="card_humi">
+        <div class="card-header">
+        </div>
+        <div class="card-body text-center" id="card_humi_info">
+          hu
+        </div>
+        <h3 class="card-title text-center" id="card_humi_data">8°</h3>
+      </div> <!-- end of card -->
+
+      <div class="col mr-2 mb-2 card text-white bg-dark" id="card_acid">
+        <div class="card-header">
+        </div>
+        <div class="card-body text-center" id="card_acid_info">
+          ph
+        </div>
+        <h3 class="card-title text-center" id="card_acid_data">8°</h3>
+      </div> <!-- end of card -->
+
+      <div class="col mr-2 mb-2 card text-white bg-dark" id="card_wlvl">
+        <div class="card-header">
+        </div>
+        <div class="card-body text-center" id="card_wlvl_info">
+          wl
+        </div>
+        <h3 class="card-title text-center" id="card_wlvl_data">8°</h3>
+      </div> <!-- end of card -->
+
+      <div class="col mr-2 mb-2 card text-white bg-dark" id="card_light">
+        <div class="card-header">
+        </div>
+        <div class="card-body text-center" id="card_light_info">
+          lu
+        </div>
+        <h3 class="card-title text-center" id="card_light_data">ON</h3>
+      </div> <!-- end of card -->
+    </div> <!-- end of row -->
+
+    <div class="row ml-2 mr-2" id="test">
+      <div class="col mr-2 mb-2 card text-white bg-dark">
+        <canvas id="chart_all" width="300" height="60">
+          Sorry, your browser doesn't support the &lt;canvas&gt; element.
+        </canvas>
+      </div> <!-- end of card -->
+    </div> <!-- end of row -->
+    <div class="row ml-2 mr-2" id="test">
+      <div class="col mr-2 mb-2 card text-white bg-secondary">
+        <canvas id="chart_temp" width="300" height="60">
+          Sorry, your browser doesn't support the &lt;canvas&gt; element.
+        </canvas>
+        <!-- light -->
+        <!-- <i class="far fa-lightbulb"></i> -->
+        <!-- light on -->
+        <!-- <i class="fas fa-lightbulb"></i> -->
+        <!-- night -->
+        <!-- <i class="far fa-moon"></i> -->
+        <!-- night on  -->
+        <!-- <i class="fas fa-moon"></i> -->
+        <!-- sun -->
+        <!-- <i class="far fa-sun"></i> -->
+        <!-- sun on -->
+        <!-- <i class="fas fa-sun"></i> -->
+        <!-- eye -->
+        <!-- <i class="fas fa-eye"></i> -->
+        <!-- barred eye  -->
+        <!-- <i class="fas fa-low-vision"></i> -->
+        <!-- size -->
+        <!-- <i class="fas fa-ruler-vertical"></i> -->
+        <!-- temperature -->
+        <!-- <i class="fas fa-thermometer"></i> -->
+        <!-- <i class="fas fa-thermometer-half"></i> -->
+        <!-- acidité -->
+        <!-- <i class="fas fa-vial"></i> -->
+        <!-- humidité -->
+        <!-- <i class="fas fa-tint"></i> -->
+        <!-- ?? -->
+        <!-- <i class="fas fa-cannabis"></i> -->
+        <!-- water -->
+        <!-- <i class="fas fa-water"></i> -->
+        <!-- outils -->
+        <!-- <i class="fas fa-tools"></i> -->
+        <!-- calendar  -->
+        <!-- <i class="far fa-calendar-alt"></i> -->
+      </div> <!-- end of card -->
+    </div> <!-- end of row -->
+    <!-- row en plus  -->
+    </div> <!-- end of row -->
+    <div class="" id="dashboard">
+
+    </div>
+    </div>
+    <!-- chart.js -->
+    <script src="./../js/libs/moment.min.js"></script>
+    <script src="./../js/libs/Chart.min.js"></script>
+    <script src="./../js/libs/utils.js"></script>
+    <!-- useful -->
+    <script src="./../js/green/chart_utilities.js"></script>
+    <!-- kwa.js -->
+    <script src="./../js/Kwa.js"></script>
+    <!-- kwa tools -->
+    <script src="./../js/kwatools.js"></script>
+    <!-- scripts  -->
+    <script src="./../js/main.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      window.onload = (function() {
+        // entry point js
+        init('initialization')
+      })
+    </script>
+  </body>
+
   </html>

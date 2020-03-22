@@ -4,7 +4,7 @@ exports.rest = function(conf) {
     result: 'NOTHING HERE'
   }
   var express = require('express');
-  // var connection = require('./connection.js').connection(conf);
+  var connection = require('./connection.js').connection(conf);
   var sgp = require('./sgp_ctrlr.js');
   var sgp_machines = require('./sgp_machines.js');
   var code = require('./session.js');
@@ -61,34 +61,28 @@ exports.rest = function(conf) {
 
   //INFOS
   app.route('/infos/:device/:code').get(function(req, res) {
+  // app.route('/infos/:device/*').get(function(req, res) {
     console.log('server infos device', req.params.device);
-    console.log(req.params.code, code.getCode(conf));
+    // console.log(req.params.code, code.getCode(conf));
     if (req.params.code == code.getCode(conf)) {
-      res.send(sgp.infos(req.params.device));
+      res.status(200).send( '' + sgp.infos(req.params.device));
     } else {
       res.status(403).send('Forbidden');
     }
+    // res.status(200).send('' + sgp.infos(req.params.device));
   });
   //STATS
-  // app.route('/stats/:type/:code').get(function(req, res) {
-  //   console.log('server stats:', req.params.type);
-  //   console.log(req.params.code, code.getCode(conf))
-  //   if(req.params.code == code.getCode(conf)){
-  //     connection.query('SELECT ' + req.params.type + ' from records ;', function(error, results, fields){
-  //       if(error) throw error;
-  //       // console.log(results[0]);
-  //       let rep = ''
-  //       for (var i = 0; i < fields.length; i++) {
-  //         let values = results.map((elmt,i) => {return elmt[fields[i].name]});
-  //         rep += (fields[i].name + ':' + values) + '\n';
-  //       }
-  //       res.send(rep);
-  //       // res.send(results);
-  //     });
-  //   }else{
-  //     res.send(NOTHING_HERE)
-  //   }
-  // });
+  app.route('/stats/:type/:limit/:code').get(function(req, res) {
+    console.log('server stats:', req.params.type);
+    console.log(req.params.code, code.getCode(conf))
+    if(req.params.code == code.getCode(conf)){
+      sgp.stats(connection,req.params.type,req.params.limit,(data,res)=>{
+        res.send(data);
+      },res);
+    }else{
+      res.send(NOTHING_HERE)
+    }
+  });
 
   //404
   app.route('*').get(function(req, res) {

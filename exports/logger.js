@@ -10,6 +10,7 @@ exports.logger = function(conf) {
     defaultMeta: {
       service: 'user-service'
     },
+    emitErrs: false,
     transports: [
       //
       // - Write all logs with level `error` and below to `error.log`

@@ -1,10 +1,14 @@
 {
   "name": "project_super_green",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "description": "so green",
   "main": "sgp_client.js",
+  "bin": {
+    "sgp": "bin/sgp.js"
+  },
   "scripts": {
     "start": "electron .",
+    "all": "all.sh & exit 0",
     "server": "node ./sgp_srv.js",
     "test": "echo 'no command for test'"
   },
@@ -17,10 +21,14 @@
   "author": "jeanyves chaillou @ kwa",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@kwabounga/cli_dashboard": "^1.0.5",
+    "commander": "^5.0.0",
     "cron": "^1.8.2",
-    "electron": "^8.0.1",
+    "electron": "^8.1.1",
     "express": "^4.17.1",
-    "mariadb": "^2.2.0",
+    "image-asciify-cli": "0.0.2",
+    "mariadb": "^2.3.1",
     "mysql": "^2.18.1",
     "winston": "^3.2.1"
   },

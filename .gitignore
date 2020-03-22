@@ -1,9 +1,15 @@
 #sgp configuration
 /conf
 /confrpi
+/img/
+
 # Logs
 logs
 *.log
+
+#fontAwesome
+/css/fontawesome-free/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

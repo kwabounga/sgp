@@ -1,9 +1,22 @@
-# SGP
-![GPIO](./doc/svg/untitled.svg)
-super green project
+![NODEJS](./doc/svg/Node.js_logo2.svg)  
+![RPI](./doc/svg/raspberry+pi+horizontal.svg)
+![SGP](./doc/svg/vectorpaint.svg)
+
+# ***Super Green Project***
 
 
 
+*ou projet* ***super green***  
+
+système de gestion et controle de culture inDoor automatisé  
+à terme:
+software
+* Dashboard / Overview client en local avec electron
+* Serveur de controles, relevés avec scénarios
+* API rest pour l'interface serveur / client
+hardware
+* Machine de controle ( rpi, sensors, caméra, et controleurs d'alimentation eau / électricité)
+* systeme hydro
 
 
 ### Utilisation
@@ -14,49 +27,62 @@ Apres avoir récupérer le projet sur
 naviguer dans le dossier *./sgp/*  
 et taper:  
 
-d'une part  
-`npm run server`
-// pour démarrer le serveur sur le raspberry  
-
-et d'autre part  
-`npm start` // pour ouvrir le module de monitoring sur un pc
-
-`//TODO: utilisation de npm link pour créer une CLI`
 ```sh
-$ sgp start [-s scenario (default='default')]
-$ sgp reboot
-$ sgp stop
-$ sgp load
-$ sgp infos ??
+npm run server
+# pour démarrer le serveur sur le raspberry  
 ```
 
-utile:
+```sh
+npm start
+# ouvre le module de monitoring sur un pc (app electron)
+```  
+
+* Ajout de la commande
+```sh
+npm run all
+# lance srv et monitoring (pour tests en local)
+```
+
+* Creation de la commande 'sgp'
+```sh
+$ sgp -V
+# numero de version
+$ sgp -h
+# affiche l'aide
+$ sgp -h -c [pwd]
+# affiche l'aide et la configuration
+$ sgp -m [pwd]
+# affiche le monitoring en ligne de commandes
+```
+## utile:
 ```js
-const exec = require('child_process').exec, child;
-const myShellScript = exec('sh doSomething.sh /myDir');
-myShellScript.stdout.on('data', (data)=>{
-    console.log(data);
-    // do whatever you want here with data
-});
-myShellScript.stderr.on('data', (data)=>{
-    console.error(data);
-});
+  const exec = require('child_process').exec, child;
+  const myShellScript = exec('sh doSomething.sh /myDir');
+  myShellScript.stdout.on('data', (data)=>{
+      console.log(data);
+      // do whatever you want here with data
+  });
+  myShellScript.stderr.on('data', (data)=>{
+      console.error(data);
+  });
 ```
 ### BDD
-l'application utilise une base de donnée mySql pour  
+l'application utilise une base de donnée mySql (local) / mariadb (rpi) pour  
 * récupérer la configuration des scenarios
-* et enregistrer les relevés
-* et les photos
+* enregistrer les relevés
+* enregistrer les liens/id/informations? des photos
 
 ### Modules
 Description des modules et utilisation / personnalisation
+intégration du dashboard pour le monitoring cli
+
 
 #### configuration.js
 
-configuration loader/parser  
+outils perso pour la recuperation et l'instenciation de la configuration
 usage :
 
-*créer le fichier ***./conf/.conf*** avec les infos suivantes:*
+*créer le fichier ***./conf/.conf*** avec les bonnes infos:*
 ```conf
 rest_url:localhost
 rest_port:4000
@@ -65,6 +91,11 @@ db_port:3306
 db_name:db_name
 db_user:username
 db_pwd:password
+
+log_file:./log/sgp-logs.log
+err_file:./log/sgp-exceptions.log
+
+admin_pass:admin
 ```
 
 *Charger la configuration:*
@@ -88,7 +119,7 @@ require('./exports/configuration.js').configuration('./conf/.conf', (conf) => {
 
 #### rest.js
 
-le serveur de l'api rest
+le serveur à une api rest
 
 1. permet de questionner le serveur sur les actions possible à effectuer
 1. permet de questionner le serveur, et de recupérer des relevés sur les capteurs  
@@ -142,6 +173,7 @@ sgp_machines.temperature() // renvoi la temperature
 sgp_machines.acidity() // renvoi le ph de l'eau
 sgp_machines.humidity() // renvoi l'humidité de l'air
 sgp_machines.water_level() // renvoi le niveau d'eau
+sgp_machines.luminosity() // renvoi l'état des lumieres
 ```
 
 
@@ -170,12 +202,16 @@ mon.init(() => {
 ```
 `// TODO: faire une methode pour stopper le Monitoring`  
 
-
+![SGPTINY](./doc/svg/preview.svg)
 
 
 ## Raspberry spécificités
 
 #### GPIO
 ![GPIO](./doc/svg/gpiopinsv3.svg)
+![GPIO](./doc/svg/gpiopinsv3withpi.svg)
+#### RPI
+![RPI](./doc/svg/RaspberryPi_3B.svg)
 #### Beadboard
 ![Beadboard](./doc/svg/Beadboard.svg)
+![BeadboardExplanations](./doc/Breadboard_Remarked_grande.png.webp)

@@ -4,15 +4,12 @@ let win
 // let appIcon
 function createWindow () {
   // Creer la fenetre du navigateur.
-  // appIcon = new Tray('./heroku.png')
   win = new BrowserWindow({
     show:false,
     width: 800,
     height: 580,
     x: 0,
     y: 40,
-    // type: 'toolbar',
-    // skipTaskbar: true,
     hasShadow: true,
     resizable: true,
     // transparent: true,
@@ -31,6 +28,11 @@ function createWindow () {
   win.once('ready-to-show', () => {
     win.show()
     console.log(require('os').hostname())
+    win.on('click', (arguments) => {
+      console.log(win)
+      // win.setTtransparent(!win.isAlwaysOnTop())
+    })
+
   })
   // appIcon.on('click', function(){
   //   console.log('TRAYYY', win.isAlwaysOnTop())

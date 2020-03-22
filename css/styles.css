@@ -1,2 +1,10 @@
 /* your styles sheet */
-  
+canvas {
+  /* background-color: blue; */
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 0;
+}
