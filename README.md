@@ -9,41 +9,92 @@
 *ou projet* ***super green***  
 
 système de gestion et controle de culture inDoor automatisé  
-à terme:
-software
+à terme:  
+software  
 * Dashboard / Overview client en local avec electron
 * Serveur de controles, relevés avec scénarios
-* API rest pour l'interface serveur / client
-hardware
+* API rest pour l'interface serveur / client  
+* BDD pour l'historique des relevés et overview
+hardware  
 * Machine de controle ( rpi, sensors, caméra, et controleurs d'alimentation eau / électricité)
 * systeme hydro
 
+## Prérequis
+Pour utiliser le systeme il vous faudra  
 
-### Utilisation
+Coté hardware  
+* rpi Modele 3
+* capteur humidité / temprérature dht11
+* quelques led
+* capteur de niveau d'eau
+* capteur acidité
+* lister les autres capteurs ...
+* switch/ controleur alimentation x3
+* switch / debit d'eau / valve x2
 
-Apres avoir récupérer le projet sur  
-`git clone https://github/kwabounga/sgp`
+Coté software  
+*sur le rpi*
+
+* node ^10.0.0 et npm
+* maradb
+
+*sur l'ordinateur de controle*
+* node ^10.0.0 et npm
+
+Pour les tests sgp_srv reconnait l'environneemnt et peut aller se connecter a une base de donneé mysql et va simuler les relever au lieu d'interroger les capteurs  
+
+### Utilisation  
+Apres avoir finit de faire le montage du systeme  
+Récupérer le projet sur git  
+*sur le RPI*
+```sh
+git clone https://github/kwabounga/sgp
+```
+* installer mariadb
+* entrez les infos de configuration ip pwd ect
 
 naviguer dans le dossier *./sgp/*  
+créer un fichier ./conf/.conf
 et taper:  
 
 ```sh
+npm install
 npm run server
 # pour démarrer le serveur sur le raspberry  
 ```
+*sur le PC local*
+```sh
+git clone https://github/kwabounga/sgp
+```
+* installer mysql pour les test sinon pas la peine
+* entrez les infos de configuration ip pwd ect
+
+naviguer dans le dossier *./sgp/*  
+créer un fichier ./conf/.conf
 
 ```sh
+npm install
 npm start
 # ouvre le module de monitoring sur un pc (app electron)
 ```  
 
-* Ajout de la commande
+Ajout de la commande
 ```sh
 npm run all
 # lance srv et monitoring (pour tests en local)
 ```
 
-* Creation de la commande 'sgp'
+Creation de la commande 'sgp'
+
+```sh
+# installation
+$ cd ..../sgp/
+$ npm link
+> done
+```
+A partir de là si un access en ssh vers le rpi est configuré
+un monitoring en ligne de commande est possible
+
 ```sh
 $ sgp -V
 # numero de version
@@ -54,7 +105,13 @@ $ sgp -h -c [pwd]
 $ sgp -m [pwd]
 # affiche le monitoring en ligne de commandes
 ```
-## utile:
+
+
+
+# partie technique
+
+## TODO utile:  
+pour la creation post installe ds la dbb directement??
 ```js
   const exec = require('child_process').exec, child;
   const myShellScript = exec('sh doSomething.sh /myDir');
