@@ -19,7 +19,7 @@ function init(param = '') {
   let bd = document.body;
   bd.addEventListener('keypress', (evt) => {
     console.log(evt.keyCode, evt.key)
-    if(evt.key == ' '){
+    if (evt.key == ' ') {
       win.setOpacity(Math.abs(win.getOpacity()-1));
     }
   })
@@ -73,6 +73,11 @@ function updateLauncher(timeInMinute) {
 function updateDashboard() {
   let bd = document.body
   console.log('moment code :' + document.createTextNode(code.getCode(_conf)))
+
+  // /* Tests */
+  // ajaxGet('http://' + _conf.rest_url + ':' + _conf.rest_port + '/tests/' + code.getCode(_conf), function(data) {
+  //   console.log('Tests', data);
+  // })
 
   /* Temperature */
   ajaxGet('http://' + _conf.rest_url + ':' + _conf.rest_port + '/infos/temperature/' + code.getCode(_conf), function(data) {

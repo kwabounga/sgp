@@ -15,7 +15,7 @@ exports.getCode = function(conf){
       return dt
     }
   }
-  
+
   let code_session = ''
   let encryption =  ''
                   + (Math.floor(code.tools.date().getMinutes() / 4))

@@ -126,10 +126,11 @@ var takePicture = function(blocName) {
   var options = {
     fit:    'box',
     width:  db.getBlocByName('bloc2').w-4,
-    height: db.getBlocByName('bloc2').h-3,
-    custom_char: '.,~+*µ¤#O0@'
+    height: db.getBlocByName('bloc2').h-3
+    // ,
+    // custom_char: '.,~+*µ¤#O0@'
   }
-  asciify(__dirname.slice(0, p) + '/img/cam1/head.png', options, function (err, asciified) {
+  asciify(__dirname.slice(0, p) + '/img/sgp.png', options, function (err, asciified) {
     if (err) throw err;
 
     // Print to console
@@ -143,14 +144,14 @@ var takePicture = function(blocName) {
 var constructChartDatasetsFromData = function(data) {
   // console.log(data)
   let stats = data;
-  let statsKey = Object.keys(stats)
+  let statsKey = Object.keys(stats);
   // {title:'size / 150',values:[10,15,20,25,30],maxValue:150}
   let datasets = {};
   for (var i = 0; i < statsKey.length; i++) {
-    let key = statsKey[i]
-    // console.log('key:', key)
+    let key = statsKey[i];
+    // console.log('key:', key);
     if (key === "time_infos") continue;
-    // console.log('chartColors', chartColors)
+    // console.log('chartColors', chartColors);
     let dataset = {};
     dataset.title = key;
     dataset.values = [];
@@ -162,6 +163,6 @@ var constructChartDatasetsFromData = function(data) {
     dataset.maxValue = maxv;
     datasets.dataset = dataset;
   }
-  // console.error("datasets", datasets.dataset)
+  // console.error("datasets", datasets.dataset);
   return datasets.dataset
 }

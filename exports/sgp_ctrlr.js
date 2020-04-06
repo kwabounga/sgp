@@ -1,7 +1,8 @@
 var sgp_machines = require('./sgp_machines.js');
 
+
 exports.commander =  function(command, params){
-  console.log('sgp commander ', command, params);
+  // logger.info('sgp commander ', command, params);
   let rep = 'cmd ok';
   return rep;
 }
@@ -20,7 +21,7 @@ exports.stats =  function(connection, columns, limit,callBack,res = false){
   });
 }
 exports.infos =  function(device){
-  console.log('info device ', device);
+  // logger.info('info device ', device);
   switch (device.trim()) {
     case 'tp':
     case 'temperature':

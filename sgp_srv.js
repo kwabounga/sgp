@@ -12,7 +12,7 @@ loader_conf.configuration('./conf/.conf', (data) => {
   logger.info('conf:' +  conf)
   logger.info(process.env.NODE_ENV);
   // API REST
-  var srv_rest = api_rest.rest(conf);
+  var srv_rest = api_rest.rest(conf,__dirname);
 
   // Monitoring
   var Monitoring = require('./exports/sgp_monitoring');
