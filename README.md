@@ -36,12 +36,12 @@ Coté software
 *sur le rpi*
 
 * node ^10.0.0 et npm
-* maradb
+* mariadb
 
 *sur l'ordinateur de controle*
 * node ^10.0.0 et npm
 
-Pour les tests sgp_srv reconnait l'environneemnt et peut aller se connecter a une base de donneé mysql et va simuler les relever au lieu d'interroger les capteurs  
+Pour les tests sgp_srv reconnait l'environnement et peut aller se connecter a une base de donnée mysql et va simuler les relever au lieu d'interroger les capteurs  
 
 ### Utilisation  
 Apres avoir finit de faire le montage du systeme  
@@ -111,13 +111,15 @@ $ sgp -m [pwd]
 # partie technique
 
 ## TODO utile:  
-pour la creation post installe ds la dbb directement??
+pour la creation post-instal de la dbb directement??
 ```js
   const exec = require('child_process').exec, child;
   const myShellScript = exec('sh doSomething.sh /myDir');
   myShellScript.stdout.on('data', (data)=>{
       console.log(data);
       // do whatever you want here with data
+      // inclure mariadb  
+      // création de la bdd avec scénario de base
   });
   myShellScript.stderr.on('data', (data)=>{
       console.error(data);
@@ -136,7 +138,7 @@ intégration du dashboard pour le monitoring cli
 ### Server
 #### configuration.js
 
-outils perso pour la recuperation et l'instenciation de la configuration
+outils perso pour la recuperation et l'instanciation de la configuration
 usage :
 
 *créer le fichier ***./conf/.conf*** avec les bonnes infos:*
@@ -220,17 +222,17 @@ renvoi une connection prête à executer des queries
 
 #### sgp_machines.js
 
-Acces aux differents capteurs du Raspberry  
+Acces aux différents capteurs du Raspberry  
 `// TODO: voir pour le renommer en 'sgp_sensors'`
 
 ```js
-var sgp_machines = require('./sgp_machines.js');
+var sgp_machines = require('./dal/sgp_machines.js');
 
-sgp_machines.temperature() // renvoi la temperature
-sgp_machines.acidity() // renvoi le ph de l'eau
-sgp_machines.humidity() // renvoi l'humidité de l'air
-sgp_machines.water_level() // renvoi le niveau d'eau
-sgp_machines.luminosity() // renvoi l'état des lumieres
+sgp_machines.temperature(); // renvoi la temperature
+sgp_machines.acidity(); // renvoi le ph de l'eau
+sgp_machines.humidity(); // renvoi l'humidité de l'air
+sgp_machines.water_level(); // renvoi le niveau d'eau
+sgp_machines.luminosity(); // renvoi l'état des lumieres
 ```
 
 
@@ -244,7 +246,7 @@ utilisation:
 
 ```js
 // on récupere l'objet Monitoring
-var Monitoring = require('./exports/sgp_monitoring');
+var Monitoring = require('./exports/bll/sgp_monitoring');
 // instanciation de l'objet en lui passant le nom du scenario, et la configuration en parametres
 let mon = new Monitoring('default',conf);
 
@@ -257,7 +259,44 @@ mon.init(() => {
   mon.summary(); // renvoi préleve les infos sur tous les capteurs et renvoi le resultat
 });
 ```
-// TODO: faire une methode pour stopper le Monitoring  
+// TODO: faire une méthode pour stopper le Monitoring  
+
+// exécuter un script qui va lancer / couper un service via la CLI
+// exemple: `sgp run ssgp` /  `sgp stop ssgp`
+// vérifier l'état d'un service ?  
+// exemple: `sgp state ssgp`
+// >> running / stopped
+
+## How do I run a node.js app as a background service?
+
+Make a myapp.service file (replacing 'myapp' with your app's name, obviously):  
+```
+[Unit]
+Description=SGP
+
+[Service]
+ExecStart=/pi/home/sgp/sgp_srv.js
+Restart=always
+User=nogroup
+# Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/var/www/sgp
+
+[Install]
+WantedBy=multi-user.target
+```
+
+ **Note if you're new to Unix: ``/var/www/myapp/app.js`` should have ``#!/usr/bin/env node`` on the very first line**.
+
+Copy your service file into the `/etc/systemd/system`.
+
+Start it with `systemctl start myapp`.
+
+Enable it to run on boot with `systemctl enable myapp`.
+
+See logs with `journalctl -u myapp`.
 
 ### CLI  
 
@@ -282,3 +321,49 @@ requetes sur l'api rest (local) pour récupérer les informations
 #### Beadboard
 ![Beadboard](./doc/svg/Beadboard.svg)
 ![BeadboardExplanations](./doc/Breadboard_Remarked_grande.png.webp)
+
+
+#### details du pack de capteurs  
+
+Ensemble de 37 capteurs prêts à être connectés à un microcontrôleur,  
+Par exemple pour Arduino ou raspberry berrypi.  
+Un excellent paquet pour les expériences Arduino ou comme base pour un projet plus vaste.  
+Remarque: cet article est livré sans boîte de composants de protection handyy.  
+Emballage inclus:  
+1 x petite sonnerie passive module KY-006  
+-1 x module LED 2 couleurs KY-011  
+-1 x module de capteur Hit KY-031  
+-1 x module de commutateur de Vibration KY-002  
+-1 x module de résistance Photo KY-018  
+-1 x commutateur à clé module KY-004  
+-1 x module de commutateur d'inclinaison KY-020  
+-1 x modules SMD LED couleur 3 couleurs KY-009  
+-1 x module de capteur d'émission infrarouge KY-005  
+-1 x module LED 3 couleurs KY-016  
+-1 x Mercury ouvert module optique KY-017  
+-1 x module LED Yin Yi 2 couleurs 3 MM KY-029  
+-1 x module de sonnerie actif KY-012  
+-1 x module de capteur de température KY-013  
+-1 x clignotant automatique coloré module LED KY-034  
+-1 x Mini modules à roseaux magnétiques KY-021  
+-1 x Hall capteur magnétique module KY-003  
+-1 x capteur infrarouge récepteur module KY-022  
+-1 x classe Bihor capteur magnétique KY-035  
+-1 x module de tasse de lumière magique KY-027  
+-1 x module d'encodeur rotatif KY-040  
+-1 x module optique cassé KY-010  
+-1 x détecte la KY-039 du module de rythme cardiaque  
+-1 x module Reed KY-025  
+-1 x module de capteur d'évitement d'obstacles KY-032  
+-1 x capteur de chasse module KY-033  
+-1 x module de capteur de son Microphone KY-038  
+-1 x capteur Laser module KY-008  
+-1x5 V relais module KY-019  
+-1 x module de capteur de température KY-001  
+-1 x module de capteur de température KY-028  
+-1 x capteurs linéaires magnétiques Hall KY-024  
+-1 x module de capteur de flamme KY-026  
+-1 x module de capteur de microphone sensible KY-037  
+-1 x module de capteur de température et d'humidité KY-015  
+-1 module de joystick xxy-axis KY-023  
+-1 x module de capteur tactile en métal KY-036  
