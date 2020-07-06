@@ -4,7 +4,7 @@ const motor = new Gpio(10, {
   mode: Gpio.OUTPUT
 });
 
-let convert = function(deg) {
+let convert = function (deg) {
   // 0_180
   // 500_2500
   if (deg > 180){
