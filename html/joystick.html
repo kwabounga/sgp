@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+  <!-- meta -->
+  <meta name="author" content="jean-yvesChaillou@kwa">
+  <meta name="description" content="so green">
+  <meta name="keywords" content="green super project sgp">
+  <meta name="version" content="0.0.1">
+  <meta name="application-name" content="super green project">
+  <meta charset="utf-8">
+  <title>super green project</title>
+
+  <link rel="icon" href="./../img/favicon.ico" />
+  <style>
+    body {
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      background-color: #BBB;
+    }
+
+    #result {
+      width: 100%;
+      height: 100%;
+
+    }
+    #info {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+    }
+
+    #info a {
+      color: #66F;
+      text-decoration: none;
+    }
+
+    #info a:hover {
+      text-decoration: underline;
+    }
+
+    #container {
+       position: absolute;
+      /* top: 0px;
+      bottom: 0px; */
+      width: 100%;
+      height: 1000px;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      background-color: rgba(252, 120, 120, 0.21);
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="info">
+    <a href="http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/" target="_blank">VirtualJoystick.js</a>
+    A library javascript to provide a virtual joystick on touchscreen.
+    -
+    inspired by this
+    <a href="http://sebleedelisle.com/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/">post</a>
+    from
+    <a href="http://sebleedelisle.com/">seb.ly</a>
+    <br />
+    Touch the screen and move
+    -
+    works with mouse too as debug
+    <br />
+    <span id="result"></span>
+  </div>
+  <div class="container" id="container"></div>
+  <!-- <h1>sgp</h1> -->
+  <!-- premiere ligne  -->
+
+
+  <!-- chart.js -->
+  <!-- <script src="./../js/libs/moment.min.js"></script> -->
+  <!-- <script src="./../js/libs/Chart.min.js"></script> -->
+  <!-- <script src="./../js/libs/utils.js"></script> -->
+  <!-- useful -->
+  <!-- <script src="./../js/green/chart_utilities.js"></script> -->
+  <!-- kwa.js -->
+  <!-- <script src="./../js/Kwa.js"></script> -->
+  <!-- kwa tools -->
+  <!-- <script src="./../js/kwatools.js"></script> -->
+  <!-- scripts  -->
+  <!-- <script src="./../js/main.js" charset="utf-8"></script> -->
+  <script src="../js/virtualjoystick.js"></script>
+  <script>
+    console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
+
+    var joystick = new VirtualJoystick({
+      container: document.getElementById('container'),
+      mouseSupport: true,
+    });
+    joystick.addEventListener('touchStart', function() {
+      console.log('down')
+    })
+    joystick.addEventListener('touchEnd', function() {
+      console.log('up')
+    })
+
+    setInterval(function() {
+      var outputEl = document.getElementById('result');
+      outputEl.innerHTML = '<b>Result:</b> ' +
+        ' dx:' + joystick.deltaX() +
+        ' dy:' + joystick.deltaY() +
+        (joystick.right() ? ' right' : '') +
+        (joystick.up() ? ' up' : '') +
+        (joystick.left() ? ' left' : '') +
+        (joystick.down() ? ' down' : '')
+    }, 1 / 30 * 1000);
+  </script>
+</body>
+
+</html>

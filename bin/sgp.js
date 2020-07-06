@@ -2,7 +2,7 @@
 var connection;
 var program = require('commander');
 var fs = require('fs');
-var sgp = require('../exports/sgp_ctrlr');
+var sgp = require('../exports/bll/sgp_ctrlr');
 var version = function(){
   return require('../package.json').version
 }
@@ -52,7 +52,7 @@ confLoader.configuration(__dirname.slice(0, p) + '/conf/.conf',(data)=>{
     return;
   } else {
     if (program.monitoring == conf.admin_pass) {
-      connection = require('../exports/connection').connection(conf);
+      connection = require('../exports/dal/connection').connection(conf);
       // let db = new DashBoard();
       // create blocs
       db.setScreen()

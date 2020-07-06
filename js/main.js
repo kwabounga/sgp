@@ -1,4 +1,4 @@
-var code = require('../exports/session.js');
+var code = require('../exports/tools/session.js');
 var conf_init = require('../exports/configuration.js');
 var AwesomeButton = require('../exports/view/btn_awesome.js');
 var btMngr = new AwesomeButton();

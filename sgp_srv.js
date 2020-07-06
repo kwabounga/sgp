@@ -4,21 +4,27 @@ process.env.NODE_ENV = 'debug';
 var api_rest = require('./exports/rest.js');
 var loader_conf = require('./exports/configuration.js');
 var conf =  '';
+
 loader_conf.configuration('./conf/.conf', (data) => {
   conf = data;
+
+  // logger Server
   var logger = require('./exports/logger.js').logger(conf);
-  logger.defaultMeta.service = "Server"
+  logger.defaultMeta.service = 'Server';
   logger.info('LANCEMENT DU SERVEUR SGP');
   logger.info('conf:' +  conf)
   logger.info(process.env.NODE_ENV);
+
   // API REST
   var srv_rest = api_rest.rest(conf,__dirname);
 
   // Monitoring
-  var Monitoring = require('./exports/sgp_monitoring');
+  var Monitoring = require('./exports/bll/sgp_monitoring');
+
+  // Logger Monitoring
   var loggerMon = require('./exports/logger.js').logger(conf);
-  loggerMon.defaultMeta.service = "Monitoring"
-  let mon = new Monitoring('default',conf, loggerMon);
+  loggerMon.defaultMeta.service = 'Monitoring';
+  const mon = new Monitoring('default', conf, loggerMon);
   logger.info('[SERVER] init Monitoring');
   mon.init(() => {
     logger.info('[SERVER] init Monitoring ..OK');
