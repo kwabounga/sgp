@@ -1,15 +1,24 @@
+let os = require('os');
 const fileHelpers = require('../tools/files_helpers');
-const PiCamera = require('pi-camera');
+var PiCamera ;
+var dht ;
+//
+if(os.hostname() === 'raspberrypi'){
+  PiCamera = require('pi-camera');
 
-exports.takePicture = function (dimensions, callBack) {
+} else {
+  PiCamera = require('./fake_camera');
+
+}
+exports.takePicture = function (dimensions, callBack, path) {
   // redefine dimentions
   // setting unique name
   const uName = fileHelpers.getUniqueName('cam', '.jpg');
-
+  console.log('uName', uName);
   // create camera object
   const myCamera = new PiCamera({
     mode: 'photo',
-    output: `${__dirname}/${uName}`,
+    output: `${path}/${uName}`,
     width: dimensions.width,
     height: dimensions.height,
     nopreview: true,
@@ -19,7 +28,7 @@ exports.takePicture = function (dimensions, callBack) {
   myCamera.snap()
     .then((result) => {
       // success
-      console.log('photo prise!');
+      console.log('snap.then >> ', myCamera.config.output);
       callBack(myCamera.config.output);
     })
     .catch((error) => {

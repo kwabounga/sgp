@@ -34,4 +34,22 @@ loader_conf.configuration('./conf/.conf', (data) => {
     mon.start();
     mon.summary();
   });
+
+
+  // const WebSocket = require('ws')
+  // const wss = new WebSocket.Server({ port: 8080 })
+  //
+  // wss.on('connection', ws => {
+  //   ws.on('message', message => {
+  //
+  //     if(message == 'Client Connected'){
+  //       console.log(`Received message => ${message}`);
+  //
+  //     }else{
+  //       console.log(`Received command => ${message}`);
+  //
+  //     }
+  //   })
+  //   ws.send('Connection aux controles en temp reel');
+  // })
 })

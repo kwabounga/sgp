@@ -130,7 +130,8 @@ var takePicture = function(blocName) {
     // ,
     // custom_char: '.,~+*µ¤#O0@'
   }
-  asciify(__dirname.slice(0, p) + '/img/cam1/hackerman.jpg', options, function (err, asciified) {
+  // __dirname.slice(0, p) + '/img/cam1/hackerman.jpg'
+  asciify(sgp.infos('camera'), options, function (err, asciified) {
     if (err) throw err;
 
     // Print to console

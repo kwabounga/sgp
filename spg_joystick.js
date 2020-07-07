@@ -26,7 +26,7 @@ function createWindow () {
   })
 
   // charge la page d'acceuil de l'app
-  win.loadFile('html/joystick.html')
+  win.loadFile('html/joystick.html');
   // affiche proprement l'app ( sans voir le chargement )
   win.once('ready-to-show', () => {
     win.show()

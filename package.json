@@ -7,7 +7,7 @@
     "sgp": "bin/sgp.js"
   },
   "scripts": {
-    "start": "electron .",
+    "start": "electron . --disable-gpu",
     "all": "all.sh & exit 0",
     "server": "node ./sgp_srv.js",
     "test": "echo 'no command for test'"
@@ -30,7 +30,8 @@
     "image-asciify-cli": "0.0.2",
     "mariadb": "^2.3.1",
     "mysql": "^2.18.1",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "ws": "^7.3.1"
   },
   "repository": {
     "type": "git",

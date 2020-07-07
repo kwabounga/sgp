@@ -4,7 +4,7 @@ const motor = new Gpio(10, {
   mode: Gpio.OUTPUT
 });
 
-let convert = function (deg) {
+let convert = function(deg) {
   // 0_180
   // 500_2500
   if (deg > 180){
@@ -13,7 +13,7 @@ let convert = function (deg) {
   if (deg < 0){
     deg = 0;
   }
-  return (deg * 11.11) + 500;
+  return Math.ceil((deg * 11.11) + 500);
 }
 exports.setPosition = function (deg) {
   motor.servoWrite(convert(deg));

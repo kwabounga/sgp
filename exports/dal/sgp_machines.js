@@ -3,6 +3,8 @@
  */
 const tempHumi = require('../sensors/temp_humi');
 const camera = require('../sensors/camera');
+const servo = require('../sensors/servo');
+tempHumi.startReading();
 
 exports.temperature = function (callBack) {
   // temperature
@@ -26,13 +28,13 @@ exports.luminosity = function () {
 };
 
 exports.camera = {
-  takePicture: function (dimensions, callBack) {
+  takePicture: function (dimensions, callBack, path) {
     if (!dimensions) {
       dimensions = {
         width: 640,
         height: 480
       };
     }
-    camera.takePicture(dimensions, callBack);
+    camera.takePicture(dimensions, callBack, path);
   }
 };

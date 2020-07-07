@@ -18,6 +18,14 @@ var styleConstruc = ['font-style: italic', 'color: teal '].join(';');
 var styleMethode = ['font-style: italic', 'color: olive '].join(';');
 
 
+// function used to remap a range in en other range
+// isLocked is used to lock the min / max out values
+function map(x, in_min, in_max, out_min, out_max,isLocked = true) {
+  let rmp = Math.round((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
+  rmp = (rmp >= out_max) ? out_max : rmp;
+  rmp = (rmp <= out_min) ? out_min : rmp;
+  return rmp;
+}
 // return a pseudo randomBoolean with a pseudo percentage of 'true'
 function randomBoolean(_percent = 20) {
   var rdBoo = Math.floor(Math.random() * 100);

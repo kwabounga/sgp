@@ -22,7 +22,7 @@ exports.stats = function (connection, columns, limit, callBack, res = false) {
     callBack(stats, res);
   });
 };
-exports.infos = function (device) {
+exports.infos = function (device , callBack) {
   // logger.info('info device ', device);
   switch (device.trim()) {
     case 'tp':

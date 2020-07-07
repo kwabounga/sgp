@@ -42,82 +42,67 @@
       text-decoration: underline;
     }
 
-    #container {
+    #motionjpeg{
+      position: absolute;
+      width: 320px;
+      height: 240px;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+
+    .container {
        position: absolute;
+       z-index: 0;
       /* top: 0px;
       bottom: 0px; */
-      width: 100%;
-      height: 1000px;
+      /* width: 50%;
+      height: 800px; */
       overflow: hidden;
       padding: 0;
       margin: 0;
       -webkit-user-select: none;
       -moz-user-select: none;
+
+    }
+    #container1 {
       background-color: rgba(252, 120, 120, 0.21);
 
     }
+    #container2 {
+      background-color: rgba(127, 241, 99, 0.21);
+    }
+
   </style>
 </head>
 
 <body>
+  <!-- <video id="video" src="http://192.168.1.94:4000/video/" type="video/x-jpeg" autoplay>
+   Your browser does not support the <code>video</code> element.
+</video> -->
+  <!-- <img id="motionjpeg" src="http://192.168.1.94:4000/video/something/" /> -->
 
-  <div id="info">
-    <a href="http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/" target="_blank">VirtualJoystick.js</a>
-    A library javascript to provide a virtual joystick on touchscreen.
-    -
-    inspired by this
-    <a href="http://sebleedelisle.com/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/">post</a>
-    from
-    <a href="http://sebleedelisle.com/">seb.ly</a>
-    <br />
-    Touch the screen and move
-    -
-    works with mouse too as debug
-    <br />
-    <span id="result"></span>
-  </div>
-  <div class="container" id="container"></div>
+  <div><span id="resultRight"></span><span id="resultLeft"></span></div>
+  <div class="container" id="container1"></div>
+  <div class="container" id="container2"></div>
   <!-- <h1>sgp</h1> -->
   <!-- premiere ligne  -->
 
 
-  <!-- chart.js -->
-  <!-- <script src="./../js/libs/moment.min.js"></script> -->
-  <!-- <script src="./../js/libs/Chart.min.js"></script> -->
-  <!-- <script src="./../js/libs/utils.js"></script> -->
-  <!-- useful -->
-  <!-- <script src="./../js/green/chart_utilities.js"></script> -->
-  <!-- kwa.js -->
-  <!-- <script src="./../js/Kwa.js"></script> -->
   <!-- kwa tools -->
-  <!-- <script src="./../js/kwatools.js"></script> -->
-  <!-- scripts  -->
-  <!-- <script src="./../js/main.js" charset="utf-8"></script> -->
+  <script src="./../js/kwatools.js"></script>
+  <!-- joystick -->
   <script src="../js/virtualjoystick.js"></script>
+  <!-- entry point -->
+  <script src="../js/main_robot.js"></script>
+  <script type="text/javascript">
+    window.onload = (function() {
+      // entry point js
+      init('initialization')
+    })
+  </script>
   <script>
-    console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
-    var joystick = new VirtualJoystick({
-      container: document.getElementById('container'),
-      mouseSupport: true,
-    });
-    joystick.addEventListener('touchStart', function() {
-      console.log('down')
-    })
-    joystick.addEventListener('touchEnd', function() {
-      console.log('up')
-    })
-
-    setInterval(function() {
-      var outputEl = document.getElementById('result');
-      outputEl.innerHTML = '<b>Result:</b> ' +
-        ' dx:' + joystick.deltaX() +
-        ' dy:' + joystick.deltaY() +
-        (joystick.right() ? ' right' : '') +
-        (joystick.up() ? ' up' : '') +
-        (joystick.left() ? ' left' : '') +
-        (joystick.down() ? ' down' : '')
-    }, 1 / 30 * 1000);
   </script>
 </body>
 
