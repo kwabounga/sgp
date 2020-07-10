@@ -5,6 +5,18 @@ var conf_init = require('../exports/configuration.js');
 var joystick;
 var joystick2;
 
+function heartbeat() {
+  clearTimeout(this.pingTimeout);
+
+  // Use `WebSocket#terminate()`, which immediately destroys the connection,
+  // instead of `WebSocket#close()`, which waits for the close timer.
+  // Delay should be equal to the interval at which your server
+  // sends out pings plus a conservative assumption of the latency.
+  this.pingTimeout = setTimeout(() => {
+    this.terminate();
+  }, 30000 + 1000);
+}
+
 // entry point here
 function init(param = '') {
   console.log('main.js init', param);
@@ -84,20 +96,29 @@ function initDisplay() {
   js2.style.height = window.innerHeight + 'px';
 }
 function sendRobotData() {
-  var outputEl = document.getElementById('resultRight');
-  outputEl.innerHTML = 'deltaY ' + map(joystick.deltaY(),-150,150,0,1023) + 'deltaX ' + map(joystick2.deltaX(),-250,250,0,1023)
-  connection.send('' + map(joystick.deltaY(),-150,150,0,1023) + '|' + map(joystick2.deltaX(),-250,250,0,1023));
+  // var outputEl = document.getElementById('resultLeft');
+  // outputEl.innerHTML = '[Joy1] speed(deltaY) ' + map(joystick.deltaY(),-250,250,0,1023) + ' ???(deltaX) ' + map(joystick.deltaX(),-150,150,0,1023)
+  // outputEl = document.getElementById('resultRight');
+  // outputEl.innerHTML = '[Joy2] ???(deltaY) ' + map(joystick2.deltaY(),-250,250,0,1023) + ' rotation(deltaX) ' + map(joystick2.deltaX(),-150,150,0,1023)
+  connection.send('' + map(joystick.deltaY(),-250,250,0,1023) + '|' + map(joystick2.deltaX(),-150,150,0,1023));
 }
 function sendRobotData2() {
-  var outputEl = document.getElementById('resultLeft');
-  outputEl.innerHTML = 'deltaX ' + map(joystick2.deltaX(),-150,150,0,1023) + 'deltaY ' + map(joystick2.deltaY(),-250,250,0,1023)
+  // var outputEl = document.getElementById('resultRight');
+  // outputEl.innerHTML = '[Joy2] ???(deltaY) ' + map(joystick2.deltaY(),-250,250,0,1023) + ' rotation(deltaX) ' + map(joystick2.deltaX(),-150,150,0,1023)
+  connection.send('' + map(joystick.deltaY(),-250,250,0,1023) + '|' + map(joystick2.deltaX(),-150,150,0,1023));
   // connection.send('' + map(joystick2.deltaX(),-150,150,0,1023) + '|' + map(joystick2.deltaY(),-250,250,0,1023));
 }
 function initConnection() {
     console.log('ws connection ....');
   const url = 'ws://' + conf.ws_url + ':' + conf.ws_port;
   connection = new WebSocket(url);
+connection.on('open', heartbeat);
+connection.on('ping', heartbeat);
+connection.on('close', function clear() {
+  clearTimeout(this.pingTimeout);
+});
   connection.onopen = () => {
+    // heartbeat();
     connection.send('Client Connected');
   }
 

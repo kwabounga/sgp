@@ -1,10 +1,13 @@
-const { app, BrowserWindow,Tray } = require('electron')
-
+// peut etre a mettre ds pakage.json apres la commande electron. : --disable-gpu
+const { app, BrowserWindow,Tray } = require('electron');
+app.disableHardwareAcceleration();
+app.allowRendererProcessReuse = true;
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = false;
 let win
 // let appIcon
 function createWindow () {
   // Creer la fenetre du navigateur.
-  // appIcon = new Tray('./heroku.png')
+
   win = new BrowserWindow({
     show: false,
     width: 800,
@@ -21,7 +24,8 @@ function createWindow () {
     // kiosk: true, // affiche l'app en plein ecran et empeche la mise en veille de l'ordinateur ( youtube )
     // titleBarStyle: 'customButtonsOnHover', frame: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      // offscreen: true
     }
   })
 
@@ -29,9 +33,10 @@ function createWindow () {
   win.loadFile('html/joystick.html');
   // affiche proprement l'app ( sans voir le chargement )
   win.once('ready-to-show', () => {
-    win.show()
+    win.show();
     console.log(require('os').hostname())
   })
+
   // appIcon.on('click', function(){
   //   console.log('TRAYYY', win.isAlwaysOnTop())
   //   // for (prop in win) {
@@ -40,5 +45,6 @@ function createWindow () {
   //   win.setAlwaysOnTop(!win.isAlwaysOnTop())
   // })
 }
+
 // créer la fenêtre une fois qu'electron est chargé
 app.on('ready', createWindow)

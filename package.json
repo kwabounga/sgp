@@ -7,7 +7,7 @@
     "sgp": "bin/sgp.js"
   },
   "scripts": {
-    "start": "electron . --disable-gpu",
+    "start": "electron .",
     "all": "all.sh & exit 0",
     "server": "node ./sgp_srv.js",
     "test": "echo 'no command for test'"
